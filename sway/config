@@ -1,0 +1,210 @@
+# run pure wayland
+#xwayland disable
+
+### variable configuration
+set {
+    # logo key
+    $mod Mod1
+
+    # home row direction keys
+    $left h
+    $down j
+    $up k
+    $right l
+    
+    # set terminal
+    $term alacritty
+
+    # set browser
+    $browser firefox
+
+    # screenlock 
+    $screenlock swaylock -i ~/.backgrounds/o3718826.jpg fill
+
+    # application launcher
+    $menu dmenu_path | wofi --show run | xargs swaymsg exec --
+} 
+
+### startup runs
+exec {
+    # notifications
+    mako
+
+    # idle configuration
+    swayidle -w timeout 500 '$screenlock'
+}
+
+
+### output configuration
+# desktop wallpaper
+output * bg ~/.backgrounds/o3718826.jpg fill
+#output * bg #141444 solid_color
+
+# borders
+#smart_gaps off
+default_border pixel
+gaps inner 10
+
+### bindings
+bindsym {
+    ### movement and focus
+    # move your focus around
+    $mod+$left focus left
+    $mod+$down focus down
+    $mod+$up focus up
+    $mod+$right focus right
+    # with arrow keys
+    $mod+Left focus left
+    $mod+Down focus down
+    $mod+Up focus up
+    $mod+Right focus right
+
+    # move the focused window
+    $mod+Shift+$left move left
+    $mod+Shift+$down move down
+    $mod+Shift+$up move up
+    $mod+Shift+$right move right
+    # with arrow keys 
+    $mod+Shift+Left move left
+    $mod+Shift+Down move down
+    $mod+Shift+Up move up
+    $mod+Shift+Right move right
+
+    ### layout configuration
+    # object focus split direction 
+    $mod+v splitt
+
+    # Switch the current container between different layout styles
+    $mod+s layout stacking
+    $mod+w layout tabbed
+    $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    $mod+a focus parent
+    $mod+Shift+a focus child
+    ### run bidings
+    # start terminal
+    $mod+Return exec $term
+
+    # start launcher
+    $mod+d exec $menu
+
+    # tab between previous workspace
+    $mod+Tab workspace back_and_forth
+
+    # start browser
+    $mod+z exec $browser
+
+    # kill focused window
+    $mod+Shift+q kill
+    
+    ### system bindings
+    # reload and exit
+    $mod+Shift+c reload
+    $mod+Shift+e exit
+
+    # lock screen
+    $mod+t exec '$screenlock'
+}
+
+
+### define colours
+set {
+    $white      #ffffff
+    $cyan       #00afd7
+    $aqua       #00d787
+    $wine       #72003e
+    $magenta    #af005f
+    $orange     #ff8700
+    $silver     #e4e4e4
+    $elegant    #1b1d1e
+    $lucent     #000000
+}
+
+### client colours
+# mode                  colour      border      background  text        indicator
+client.focused          $elegant    $cyan       $elegant    $white      $cyan            
+client.unfocused        $elegant    $elegant    $orange     $white      $elegant
+client.focused_inactive $elegant    $elegant    $aqua       $magenta    $aqua
+client.urgent           $elegant    $magenta    $silver     $magenta    $magenta
+client.placeholder      $elegant    $magenta    $silver     $white      $magenta
+
+### workspaces
+bindsym {
+    # switch workspace
+    $mod+1 workspace number 1
+    $mod+2 workspace number 2
+    $mod+3 workspace number 3
+    $mod+4 workspace number 4
+    $mod+5 workspace number 5
+    $mod+6 workspace number 6
+    $mod+7 workspace number 7
+    $mod+8 workspace number 8
+    $mod+9 workspace number 9
+    $mod+0 workspace number 10
+    
+    # move focused container to workspace
+    $mod+Shift+1 move container to workspace number 1
+    $mod+Shift+2 move container to workspace number 2
+    $mod+Shift+3 move container to workspace number 3
+    $mod+Shift+4 move container to workspace number 4
+    $mod+Shift+5 move container to workspace number 5
+    $mod+Shift+6 move container to workspace number 6
+    $mod+Shift+7 move container to workspace number 7
+    $mod+Shift+8 move container to workspace number 8
+    $mod+Shift+9 move container to workspace number 9
+    $mod+Shift+0 move container to workspace number 10
+}
+
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+### floating modifier - move windows with mouse
+floating_modifier $mod normal
+
+### bar configuration
+bar {
+    position top 
+    gaps 10
+
+    #font pango:JetMono Nerd Font 11
+    font pango:Courier New 11
+    status_command while ~/.config/sway/status.sh; do sleep 1; done 
+
+    colors {
+        # text colour
+        statusline #ffffff
+        # background
+        background #232323
+    }
+    
+}
