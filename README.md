@@ -1,5 +1,9 @@
-##dots for sway
+#dots for sway
+
+
 **packages to install**
+
+
 - sway
 - swaylock
 - zsh
