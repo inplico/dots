@@ -1,24 +1,3 @@
-### dots for sway
-
-# packages
-sway
-swaylock
-zsh
-bat
-fzf
-cups
-python
-base-devel
-mpv
-imv
-man-db
-man-pages
-bottom (btm)
-alacritty
-neofetch
-pfetch (for zsh config)
-neovim (nvim)
-ranger
-zathura
-wofi
-
+## dots for sway
+**packages to install**
+'sudo pacman -S sway swaylock zsh bat fzf cups python3 base-devel mpv imv man-db man-pages bottom alacritty neofetch pfetch neovim ranger zathura wofi'
